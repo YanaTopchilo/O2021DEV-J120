@@ -1,13 +1,20 @@
 package std;
 
-import static java.lang.System.*;
-import static std.StringService.sort;
+import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args)throws StringArrayException {
+
+    public static void main(String[] args) throws StringArrayException {
+        try {
         String[] as = {"Каждый", "охотник", "желает", "знать", "где", "сидит", "фазан"};
-        sort(as, false);
+        StringService.sort(as, false);
         for (String s : as)
-            System.out.println(s);
+            System.out.println(s);}
+        catch (StringArrayException ex){
+            System.out.println(ex.getMessage());
+        }
+
+        String str = "Mама мыла раму в субботу";
+        System.out.println(Arrays.toString(StringService.getCharStat (str)));
 }
 }
