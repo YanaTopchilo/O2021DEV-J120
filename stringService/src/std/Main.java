@@ -13,7 +13,6 @@ public class Main {
         catch (StringArrayException ex){
             System.out.println(ex.getMessage());
         }
-
         String str = "Mама мыла раму в субботу";
         System.out.println(Arrays.toString(StringService.getCharStat (str)));
 }

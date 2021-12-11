@@ -7,6 +7,5 @@ class StringArrayException extends Exception {
         super(DEFAUTL_DESCRIPTION);
     }
     public StringArrayException(String string) {
-        super(string);
-    }
+        super(string); }
 }

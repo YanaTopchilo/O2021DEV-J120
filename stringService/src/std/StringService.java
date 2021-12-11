@@ -25,7 +25,6 @@ public class StringService {
         }
         return as;
     }
-
     public static char[] getCharStat(String str) {
         char[] charStr = str.toCharArray();
         char[] charStat = new char[charStr.length];
