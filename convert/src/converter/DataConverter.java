@@ -63,22 +63,21 @@ public class DataConverter implements IFileConverter {
     public String toText(String inputFileName, String outputFileName, String charSet) {
         if(inputFileName == null)
             throw new IllegalArgumentException("inputFileName can't be null.");
-        ArrayList <String> line = new ArrayList<>();
+        //byte[] textByte = new byte[symbol.length];
         try {
             BufferedReader input = new BufferedReader(new FileReader(inputFileName));
             FileWriter output = new FileWriter(outputFileName);
             Charset charset = Charset.forName(charSet);
-            while (input.ready()){
-                line.add(input.readLine());}
-            for (int i = 0; i < line.size(); i++) {
-                byte[] bytes = line.get(i).getBytes(charset);
-                byte[] textByte = new byte[bytes.length];
-                for (int j = 0; j < bytes.length; j++) {
-                    textByte[j] = Byte.parseByte(String.valueOf(bytes[j]), 2);
-                    output.write(textByte[j] + " ");
-                    output.flush();
+            String line = input.readLine();
+            String[] simbols = line.split(" ");;
+            byte[] bytes = new byte[simbols.length];
+                for (int i = 0; i < simbols.length; i++) {
+                    bytes[i] = Byte.parseByte(simbols[i], 2);
+                    //textByte[i] = bytes.getBytes(charset);
                 }
-            }
+                    String  text = new String(bytes, charSet);
+                    output.write(text);
+                    output.flush();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -87,7 +86,35 @@ public class DataConverter implements IFileConverter {
         }
         return outputFileName;
     }
-
-
+    @Override
+   public double getSum(String fileName) throws ConverterException{
+        File file = new File(fileName);
+        if(fileName == null)
+            throw new ConverterException("FileName can't be null.");
+        if(file.length() == 0)
+            throw new ConverterException("FileName is empty");
+        ArrayList <String> line = new ArrayList<>();
+        try {
+            BufferedReader input = new BufferedReader(new FileReader(fileName));
+           while (input.ready()){
+                line.add(input.readLine());}
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        double sum = 0 ;
+        for (int i = 0; i < line.size(); i++) {
+            String str = line.get(i);
+            for (int j = 0; j < str.length(); j++) {
+                char num = str.charAt(j);
+                if (Character.isDigit(num)){
+                    double number = Double.parseDouble(String.valueOf(num));
+                    sum = sum + number;
+                }
+            }
+        }
+     return sum;
+}
 }
 

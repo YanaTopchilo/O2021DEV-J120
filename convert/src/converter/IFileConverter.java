@@ -45,4 +45,6 @@ public interface IFileConverter {
     String toText(String inputFileName, String outputFileName,
                   String charSet);
 
+    double getSum(String fileName) throws ConverterException;
+
 }
